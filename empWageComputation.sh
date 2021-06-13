@@ -3,15 +3,24 @@
 echo "Welcome to Employee Wage Computation Problem"
 
 #initialize veriables
-isPresent=1
+isFull_time=1
+isPart_time=2
 wage_per_hour=20
 
-#check condition and show employee present or not
-if [ $((RANDOM%2)) -eq $isPresent ]
-then 
-	echo "Employee is present"
+#check condition and show employee full time  or  part time and show wage
+if [ $((RANDOM%3)) -eq $isFull_time ]
+then
+
+	echo "Employee is working a full time"
 	hours_perday=8
+
+elif [ $((RANDOM%3)) -eq $isPart_time ]
+then
+
+        echo "Employee is working a Part time"
+        hours_perday=4
 else
+
 	echo "Employee is Absent"
 	hours_perday=0
 fi
@@ -20,3 +29,5 @@ fi
 echo "Daily employee wage per hours is 20"
 Daily_employee_wage=$(($wage_per_hour*$hours_perday))
 echo "$Daily_employee_wage rs. per day"
+
+
