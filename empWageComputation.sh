@@ -11,17 +11,10 @@ days=0
 WORKING_HOURS_LIMIT=100
 workingHours=0
 
-#CHECK THE CONDITION AND CALCULATE EMPLOYEES'S WORKING HOURS  
-while(( $days<$WORKING_DAYS_PER_MONTH && $workingHours<$WORKING_HOURS_LIMIT ))
-do
- 	#INCREMENT OF DAYS
-	(( days++ ))
-
-	#RANDOM CHECK
-	checkEmp=$(( RANDOM%3 ))
-	
-	#CHECK THE CONDITION - EMPLOYEE IS A PART TIME OR FULL TIME 
-	case $checkEmp in	
+#CHECK WORKING HOUR PER DAY OF AN EMPLOYEE
+function workingHoursPerDay()
+{
+	case $1 in
 		$IS_FULL_TIME)
 			hoursPerDay=8
 			;;
@@ -32,14 +25,20 @@ do
 			hoursPerDay=0
 			;;
 	esac
-	
-	#CALCULATING TOTAL WORKING HOURS OF EMPLOYEE IN A MONTH
-	workingHours=$(( $hoursPerDay + $workingHours ))
+	echo $hoursPerDay
+}
+
+#CALCULATING TOTAL WORKING HOURS
+while [[ $workingHours<$WORKING_HOURS_LIMIT && $days<$WORKING_DAYS_PER_MONTH ]]
+do
+	(( days++ ))
+	hoursPerDay=$( workingHoursPerDay $(( RANDOM%3 )) )
+	workingHours=$(($workingHours+$hoursPerDay))
 done
 
-#CALCULATE EMPLOYEE WAGES FOR A MONTH
-salary=$(( $WAGE_PER_HOUR * $workingHours )) 
-	
-#DISPLAY TOTAL WAGES RAECHED AT THE END OF THE MONTH
-echo "Total salary of an employee at the end of the month :"
-echo "$salary rs. per month"
+#DISPLAY TOTAL WORKING HOURS
+echo "Total working hours: "
+echo "$workingHours hours. "
+
+#CALCULATE THE TOTAL SALARY 
+salary=$(($workingHours*$WAGE_PER_HOUR))
