@@ -10,7 +10,7 @@ WORKING_DAYS_PER_MONTH=20
 WORKING_HOURS_LIMIT=100
 days=0
 workingHours=0
-MAX_HOURS_IN_MONTH=10
+MAX_HOURS_IN_MONTH=4
 
 #CHECK WORKING HOUR PER DAY OF AN EMPLOYEE
 function workingHoursPerDay()
@@ -50,4 +50,5 @@ done
 #CALCULATE THE TOTAL SALARY 
 salary=$( calculateDailyWage $workingHours )
 
-echo "Daily wage" ${employeeDailyWage[@]}
+echo "Daily wage :" ${employeeDailyWage[@]}
+echo "Keys :" ${!employeeDailyWage[@]}
